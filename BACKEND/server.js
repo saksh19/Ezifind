@@ -1,13 +1,24 @@
-import express from "express"
+import express from "express";
 import multer from "multer";
+import cors from 'cors'
 const app = express();
+import pdfParser from "pdf-parser"
+import fs from "fs"
+app.use(cors())
 
 const upload = multer({ dest: './uploads/' });
 
 app.post('/upload', upload.array('files', 12), (req, res) => {
   console.log(req.files);
-  // req.files is an array of uploaded files
-  // You can process the files here, e.g., save them to a database or file system
+  const textData = [];
+
+  req.files.forEach((file) => {
+    const pdfBuffer = fs.readFileSync(file.path);
+    pdfParser(pdfBuffer).then((data) => {
+      const text = data.text;
+      textData.push({ filename: file.originalname, text: text });
+    });
+  });
   res.json({ message: 'Files uploaded successfully!' });
 });
 

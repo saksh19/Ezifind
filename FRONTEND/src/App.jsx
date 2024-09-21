@@ -91,6 +91,9 @@ function App() {
          <li >
          <i class="ze fa-solid fa-users py-10 " ></i>
          </li>
+         <li>
+         <i class="ze fa-solid fa-star"></i>
+         </li>
 
       </ul>
    </div>
