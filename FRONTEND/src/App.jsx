@@ -24,7 +24,7 @@ function App() {
   const filesArray = Array.from(files); // Use Array.from to convert to an array
 
   filesArray.forEach((file) => {
-    formData.append('files', file);
+    formData.append('file', file);
   });
 
     fetch('http://localhost:3000/upload', {
